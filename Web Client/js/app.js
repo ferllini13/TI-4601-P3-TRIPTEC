@@ -1,4 +1,4 @@
-var app = angular.module("B2", ["ngRoute", 'angular.filter']);
+var app = angular.module("B2", ["ngRoute", 'angular.filter','ngAutocomplete']);
 
 const SERVER_IP = "http://localhost:3000/";
 

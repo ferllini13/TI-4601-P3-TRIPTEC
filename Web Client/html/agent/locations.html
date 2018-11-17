@@ -1,0 +1,47 @@
+<div menu></div>
+<div class="container">
+      <div class="wrapper"></div>
+      <div class="oms-h1 oms-roboto oms-red-text">
+          Select locations
+      </div>
+
+      <form id="form" role="form" name="but">
+
+      <div class="form-group move-down">
+        <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control" ng-autocomplete options="options" details="details"/>
+      </div>
+    </form>
+
+    <form id="form2">
+
+            <div align="center">
+              <input type="text" id="lat" ng-model="lat" placeholder="latitude"  style="background-color : #FFFFFF;" size="50"/>
+              <input type="text" id="lng" ng-model="lng"  placeholder="longitude"  style="background-color : #FFFFFF;" size="50"/>  
+              <input type="button"  value = "Submit" ng-click="GetLocation()" size="100" style="background-color : #3560FF;"/>
+            </div>
+      </form>
+          
+    
+    <h3>Results:</h3>
+    <img src="{{details.photos[0].getUrl()}}"  width="400" height="300"> 
+    <ul>
+      <li>name: {{ details.name }}</li>
+      <li>type:</li>
+      <ul ng-repeat="type in details.types">
+            <li > {{type}} </li>
+      </ul>
+      <li>tel: {{ details.international_phone_number }}</li>
+      <li>rating: {{ details.rating }}</li>
+      <li>schedule: </li>
+
+            <ul ng-repeat="hour in  details.opening_hours.periods" ng-if="hour.open.day!=0">
+                        <li >Day:{{hour.open.day}}     {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} </li>
+            </ul>
+            <ul  ng-if="details.opening_hours.periods[0].open.day==0">
+                        <li > 24/7</li>
+            </ul>
+      <li>website: {{ details.website }}</li>
+      <li>Lat: {{ details.geometry.location.lat() }}</li>
+      <li>Lng: {{ details.geometry.location.lng() }}</li>
+    </ul>
+

@@ -1,0 +1,31 @@
+ 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDr7ichBylKLHDvIhjCVbPeRQJcuPDpKAc"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/wpalahnuk/ngAutocomplete/master/src/ngAutocomplete.js"></script>
+        <script type="text/javascript">
+            var app = angular.module('MyApp', ['ngAutocomplete'])
+            app.controller('MyController', function ($scope, $window) {
+                $scope.autocomplete=null;
+                $scope.details=null;
+                $scope.GetLocation = function () {
+                    console.log( $scope.details);
+                };
+            });
+        </script>
+        <div ng-app="MyApp" ng-controller="MyController">
+            <input type="text"  ng-autocomplete ng-model="autocomplete" options="options" details="details"/>
+            <input type="button" value = "Submit" ng-click="GetLocation()"/>
+        </div>
+    </body>
+    </html>
+
+
+
+    
