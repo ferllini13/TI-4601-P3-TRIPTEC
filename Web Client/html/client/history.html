@@ -1,0 +1,25 @@
+<div menu></div>
+
+<div class="container">
+    <div class="wrapper"></div>
+    <div class="oms-h1 oms-roboto oms-red-text">
+        My history
+    </div>
+    <hr class="oms-hr red">
+
+
+    <div class="list-group">
+            <a href="" ng-show="history.length == 0" class="list-group-item disabled">
+                There is no result
+            </a>
+            <a ng-href="#/tripinfo/{{trip.id}}" ng-repeat="trip in history" class="list-group-item" >
+                <div class="oms-h3 oms-roboto oms-light-blue-text">
+                    {{trip.tour}}
+                </div>
+                {{trip.id}}
+            </a>
+        </div>
+
+
+
+</div>
