@@ -6,7 +6,8 @@ let clienteSchema = new Schema({
     name: {type: String, required: true},
     correo: {type: String, required: true},
     phone: {type: String, required:true},
-    birth: {type: Date, required: true}
+    birth: {type: Date, required: true},
+    wishlist: {type: [String], required: false}
 });
 
 //Exporta el modelo
