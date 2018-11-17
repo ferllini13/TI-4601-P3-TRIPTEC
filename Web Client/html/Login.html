@@ -1,0 +1,41 @@
+<div class="login-bg" ng-init=starPage()>
+  <br>
+  <div class="oms-welcome-container">
+        <h1 class="text-center oms-roboto oms-text-shadow">
+            TRIPTEC - Una solución para sus viajes
+        </h1>
+        <hr class="oms-hr">
+        <h5>
+          <i>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, libero tempora, dolorum quas commodi, reiciendis quis corrupti voluptatum ratione amet aliquam accusamus atque. Dolorem dolores accusamus corporis quisquam. Eaque, ea.
+          </i>
+        </h5>
+      </div>
+  <div class="row">
+    
+    <div class="col-sm-4 col-md-4"></div>
+    <div class="col-sm-4 col-md-4">
+      <form class="oms-signin" id="myForm" ng-submit="checkUser()">
+        <div class="oms-heading">
+          <h1 ALIGN="center" class="form-signin-heading oms-roboto">Sign in</h1>
+        </div>
+        <div class="oms-body">
+          <input type="text" class="form-control oms-input" name="username" placeholder="User" required="" autofocus="" ng-model="user.usr"
+          />
+          <input type="password" class="form-control oms-input" name="password" placeholder="Password" required="" ng-model="user.pws"
+          />
+          <input class="btn btn-lg btn-primary btn-block oms-buttom" type="submit" value="Login" />
+          <a href="#/register" class="btn btn-lg btn-danger btn-block oms-buttom">Register</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-4 col-md-4"></div>
+  </div>
+</div>
+
+<style>
+ body,
+html {
+  height: 100%;
+}
+</style>

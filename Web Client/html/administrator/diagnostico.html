@@ -1,0 +1,354 @@
+<div menu>
+</div>
+<div class="container">
+    <div class="wrapper"></div>
+    <!-- <div class="oms-roboto oms-h1 oms-light-blue-text">diagnosticos de atencion</div> -->
+    <div class="oms-roboto oms-h1 oms-red-text">Diagnosticos</div>
+
+
+
+    <!-- Toolbar que sirve para mostrar algunas opciones extras que se pueden ejecutar sobre las lista -->
+
+    <div class="row oms-toolbar">
+        <div class="col-md-12 col-sm-12">
+            <div class="pull-right oms-btn-group">
+                <a data-toggle="modal" data-target="#insertModal" ng-click="diagnosticoNuevo()" class="oms-btn oms-btn-green" href="">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Agregar
+                </a>
+                <a ng-click="getAllDiagnosticos()" class="oms-btn oms-btn-blue" href="">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    Actualizar consultas
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lista de elementos a consultar y manipular -->
+
+    <div class="list-group">
+        <a href="" ng-show="listEmpty(diagnosticos)" class="list-group-item disabled">
+            No se ha encontrado ninguna resultado
+        </a>
+        <a href="" ng-repeat="a in diagnosticos" class="list-group-item" data-toggle="modal" data-target="#basicModal" ng-click="setDiagnostico(a)">
+            <div class="oms-h3 oms-roboto oms-light-blue-text">
+                {{a.nombre}}
+            </div>
+            {{a.lugar}}
+        </a>
+    </div>
+
+
+    <br>
+
+
+    <!-- Modal que muestra la información detallada del elemento a consultar -->
+
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Informacion</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="oms-roboto oms-h1">{{diagnostico.nombre}}</div>
+                    <div class="oms-roboto">Id: </div>
+                    <input class="form-control oms-input" type="text" ng-model="diagnostico.id" />
+                    <div class="oms-roboto">Nombre: </div>
+                    <input class="form-control oms-input" type="text" ng-model="diagnostico.nombre" />
+                    <div class="oms-roboto">Descripcion: </div>
+                    <input class="form-control oms-input" type="text" ng-model="diagnostico.descripcion" />
+
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="oms-roboto oms-h3">Sintomas: </div>
+                            <div class="list-group">
+                                <a href="" ng-show="listEmpty(diagnostico.sintomas)" class="list-group-item disabled">
+                                    No se ha encontrado ninguna resultado
+                                </a>
+
+                                <div ng-repeat="sintoma in diagnostico.sintomas track by $index" class="list-group-item">
+                                    <div class="oms-form-group">
+                                        <input ng-model="diagnostico.sintomas[$index]" class="form-control oms-input red" style="width: 290px;" placeholder="sintoma"
+                                            type="text" />
+                                        <span class="oms-input-group-btn">
+                                            <a ng-click="diagnostico.sintomas.splice($index,1)" href="" class="oms-btn oms-btn-red">
+                                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                                Borrar
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-lg-12">
+                                            <div class="pull-right">
+                                                <a ng-click="addSintoma()" class="oms-btn oms-btn-blue align-center" href="">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    Agregar Sintoma
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="oms-roboto oms-h3">Tratamientos: </div>
+                            <div class="list-group">
+                                <a href="" ng-show="listEmpty(diagnostico.tratamiento)" class="list-group-item disabled">
+                                    No se ha encontrado ninguna resultado
+                                </a>
+
+                                <div ng-repeat="sintoma in diagnostico.tratamiento track by $index" class="list-group-item">
+                                    <div class="oms-form-group">
+                                        <input ng-model="diagnostico.tratamiento[$index]" class="form-control oms-input red" style="width: 290px;" placeholder="tratamiento"
+                                            type="text" />
+                                        <span class="oms-input-group-btn">
+                                            <a ng-click="diagnostico.tratamiento.splice($index,1)" href="" class="oms-btn oms-btn-red">
+                                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                                Borrar
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-lg-12">
+                                            <div class="pull-right">
+                                                <a ng-click="addTratamiento()" class="oms-btn oms-btn-blue align-center" href="">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    Agregar Tratamiento
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <div class="oms-btn-group">
+                        <a class="oms-btn oms-btn-red" data-dismiss="modal" data-toggle="modal" data-target="#deleteConfirmModal" href="">
+                            <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                            Remover
+                        </a>
+                        <a class="oms-btn oms-btn-orange" data-dismiss="modal" data-toggle="modal" data-target="#updateConfirmModal" href="">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            Actualizar
+                        </a>
+
+                        <a class="oms-btn oms-btn-green" data-dismiss="modal" href="">Cerrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para insertar algun dato-->
+
+    <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Informacion</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="oms-roboto oms-h1">{{diagnostico.nombre}}</div>
+                    <div class="oms-roboto">Id: </div>
+                    <input class="form-control oms-input" type="text" ng-model="diagnostico.id" />
+                    <div class="oms-roboto">Nombre: </div>
+                    <input class="form-control oms-input" type="text" ng-model="diagnostico.nombre" />
+                    <div class="oms-roboto">Descripcion: </div>
+                    <input class="form-control oms-input" type="text" ng-model="diagnostico.descripcion" />
+
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="oms-roboto oms-h3">Sintomas: </div>
+                            <div class="list-group">
+                                <a href="" ng-show="listEmpty(diagnostico.sintomas)" class="list-group-item disabled">
+                                    No se ha encontrado ninguna resultado
+                                </a>
+
+                                <div ng-repeat="sintoma in diagnostico.sintomas track by $index" class="list-group-item">
+                                    <div class="oms-form-group">
+                                        <input ng-model="diagnostico.sintomas[$index]" class="form-control oms-input red" style="width: 290px;" placeholder="sintoma"
+                                            type="text" />
+                                        <span class="oms-input-group-btn">
+                                            <a ng-click="diagnostico.sintomas.splice($index,1)" href="" class="oms-btn oms-btn-red">
+                                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                                Borrar
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-lg-12">
+                                            <div class="pull-right">
+                                                <a ng-click="addSintoma()" class="oms-btn oms-btn-blue align-center" href="">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    Agregar Sintoma
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="oms-roboto oms-h3">Tratamientos: </div>
+                            <div class="list-group">
+                                <a href="" ng-show="listEmpty(diagnostico.tratamiento)" class="list-group-item disabled">
+                                    No se ha encontrado ninguna resultado
+                                </a>
+
+                                <div ng-repeat="sintoma in diagnostico.tratamiento track by $index" class="list-group-item">
+                                    <div class="oms-form-group">
+                                        <input ng-model="diagnostico.tratamiento[$index]" class="form-control oms-input red" style="width: 290px;" placeholder="tratamiento"
+                                            type="text" />
+                                        <span class="oms-input-group-btn">
+                                            <a ng-click="diagnostico.tratamiento.splice($index,1)" href="" class="oms-btn oms-btn-red">
+                                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                                Borrar
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-lg-12">
+                                            <div class="pull-right">
+                                                <a ng-click="addTratamiento()" class="oms-btn oms-btn-blue align-center" href="">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    Agregar Tratamiento
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <div class="oms-btn-group">
+                        <a class="oms-btn oms-btn-red" data-dismiss="modal" href="">Descartar</a>
+                        <a ng-click="addDiagnostico()" class="oms-btn oms-btn-green" data-dismiss="modal" href="">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            Crear
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal para confirmar si se desea eliminar algun dato-->
+
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Alerta!</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea continuar con la accion?
+                </div>
+                <div class="modal-footer">
+                    <div class="oms-btn-group">
+                        <a ng-click="removeDiagnostico()" class="oms-btn oms-btn-red" data-dismiss="modal" href="">Si</a>
+                        <a class="oms-btn oms-btn-green" data-dismiss="modal" href="">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            No
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para confirmar si se desea actualizar algun dato-->
+
+
+    <div class="modal fade" id="updateConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Alerta!</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea continuar con la accion?
+                </div>
+                <div class="modal-footer">
+                    <div class="oms-btn-group">
+                        <a ng-click="updateDiagnostico()" class="oms-btn oms-btn-red" data-dismiss="modal" href="">Si</a>
+                        <a class="oms-btn oms-btn-green" data-dismiss="modal" href="">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            No
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<style>
+    html,
+    body {
+        background-color: #DDDDDD;
+        min-height: 100%;
+        height: 100%;
+    }
+</style>
+
+<script>
+    $("a.rename").click(function (e) {
+        alert("calling the four giants");
+        e.preventDefault();
+        var $this = $(this);
+        var fileName = $(this).data("file");
+        $("#basicModal").data("fileName", fileName).modal("toggle", $this);
+
+    });
+
+    $("#basicModal").on("shown.bs.modal", function (e) {
+        //data-fileName attribute associated with the modal added in the click event of the button
+        // alert($(this).data("fileName"));
+        // //my data-file associated with the button 
+        // alert($(e.relatedTarget).data("file"));
+    })
+
+
+</script>

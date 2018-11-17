@@ -1,0 +1,71 @@
+<nav class="navbar navbar-inverse navbar-oms navbar-fixed-top" ng-init="checkRol()">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a>  
+          <img src="http://icons-for-free.com/free-icons/png/512/416411.png"
+          width="48" height="48" />
+        <!-- <img src="https://png2.kisspng.com/20180404/scw/kisspng-dr-ruparelia-s-sushrusha-ayurved-multispeciality-hospital-5ac48f9fc03097.5142765515228312637872.png"
+          width="48" height="48" /> -->
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-nav-oms">
+        <li ng-if="patient">
+          <a href="#/expediente/cita-paciente">Citas</a>
+        </li>
+        <li ng-if="doctor">
+          <a href="#/expediente/cita-doctor">Citas</a>
+        </li>
+        <li ng-if="secre">
+          <a href="#/expediente/cita-secre">Citas</a>
+        </li>
+        <li ng-if="admi">
+          <a href="#/administrator">Administrar</a>
+        </li>
+        <li>
+          <a href="#/expediente">Expediente</a>
+        </li>
+      </ul>
+      <ul ng-if="patient||doctor||secre||admi" class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">{{userName}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#/profile">VER PERFIL</a>
+            </li>
+            <li>
+              <a ng-click="logOut()" href>CERRAR SESION</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<style>
+
+  @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+  .navbar-oms{
+    background-color: rgb(226, 57, 71);
+    border-color: rgb(182, 34, 46);
+  }
+  
+
+  .navbar-inverse .navbar-nav>li>a{
+    color: rgb(250, 210, 213);
+    font-family: 'Roboto', sans-serif;
+    font-size: 14pt;
+    font-weight: 100;
+  }
+
+</style>

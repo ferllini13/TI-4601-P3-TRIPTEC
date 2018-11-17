@@ -1,0 +1,74 @@
+<div menu></div>
+
+<div class="container">
+    <div class="wrapper"></div>
+    <div class="oms-h1 oms-roboto oms-red-text">
+        Register
+    </div>
+
+
+    <form id="loginForm">
+
+
+        <div class="oms-h3 oms-roboto oms-red-text">
+            User data
+        </div>
+        <hr class="oms-hr red">
+
+        <div class="oms-roboto">User Name: </div>
+        <input required class="form-control oms-input" type="text" ng-model="userData.username" />
+
+        <div class="oms-roboto">Password: </div>
+        <input required class="form-control oms-input" type="password" ng-model="userData.password" />
+
+
+        <div class="oms-h3 oms-roboto oms-red-text">
+            Client data
+        </div>
+        <hr class="oms-hr red">
+
+        <div class="oms-roboto">Id: </div>
+        <input required  class="form-control oms-input" type="text" ng-model="clientData.id" />
+
+        <div class="oms-roboto">Name: </div>
+        <input  required class="form-control oms-input" type="text" ng-model="clientData.name" />
+
+        <div class="oms-roboto">Last Name: </div>
+        <input  required class="form-control oms-input" type="text" ng-model="clientData.lastName" />
+
+
+        <div class="oms-roboto">Email: </div>
+        <input required class="form-control oms-input" type="email" ng-model="clientData.email" />
+
+        <div class="oms-roboto">Phone number: </div>
+        <input  required class="form-control oms-input" type="text" ng-model="clientData.phone" />
+
+
+        <div class="oms-roboto">Birthdate: </div>
+        <input  required class="form-control oms-input" type="date" ng-model="clientData.birthdate" />
+
+        <br>
+
+
+        <div class="align-center center-align text-center">
+                <i class="oms-roboto oms-red-text">{{errorMessage}}</i>    
+        </div>
+        
+    <div class="row">
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4">
+                    <input type="submit" ng-click="register()" 
+                    class="btn btn-lg btn-success btn-block oms-buttom"  value="Create user"/>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+        </div>
+
+    </form>
+
+
+    <br>
+    <br>
+
+
+
+</div>

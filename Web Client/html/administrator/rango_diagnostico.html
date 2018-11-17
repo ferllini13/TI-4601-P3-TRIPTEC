@@ -1,0 +1,59 @@
+<div menu>
+</div>
+<div class="container">
+    <div class="wrapper"></div>
+    <!-- <div class="oms-roboto oms-h1 oms-light-blue-text">diagnosticos de atencion</div> -->
+    <div class="oms-roboto oms-h1 oms-red-text">Reporte Tratamientos</div>
+
+
+
+
+    <!-- Lista de elementos a consultar y manipular -->
+
+    <div class="list-group">
+        <a href="" ng-show="listEmpty(rango_diag)" class="list-group-item disabled">
+            No se ha encontrado ninguna resultado
+        </a>
+        <div ng-repeat="a in reporte_trat" class="list-group-item" >
+            <div class="oms-h3 oms-roboto oms-light-blue-text">
+                {{a._id}}
+            </div>
+            Promedio: {{a.promedio}}, cantidad: {{a.count}}
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+<style>
+    html,
+    body {
+        background-color: #DDDDDD;
+        min-height: 100%;
+        height: 100%;
+    }
+</style>
+
+<script>
+    $("a.rename").click(function (e) {
+        alert("calling the four giants");
+        e.preventDefault();
+        var $this = $(this);
+        var fileName = $(this).data("file");
+        $("#basicModal").data("fileName", fileName).modal("toggle", $this);
+
+    });
+
+    $("#basicModal").on("shown.bs.modal", function (e) {
+        //data-fileName attribute associated with the modal added in the click event of the button
+        // alert($(this).data("fileName"));
+        // //my data-file associated with the button 
+        // alert($(e.relatedTarget).data("file"));
+    })
+
+
+</script>
