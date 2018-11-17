@@ -11,8 +11,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors({credentials:true, origin: true}))
 
 var login = require('./routes/login.route.js');
+var sitio = require('./routes/sitio.route.js');
 
 app.use('/login', login)
+app.use('/sitio', sitio)
 
 app.use(function(req, res){
   res.send({status:false ,error:'Invalid URL'});
