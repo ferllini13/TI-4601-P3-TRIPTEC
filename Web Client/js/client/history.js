@@ -9,8 +9,15 @@ app.config(function ($routeProvider) {
 });
 
 
-app.controller('historyController', function ($scope, connectApi) {
+app.controller('historyController', function ($scope,$routeParams, connectApi) {
 
+    $scope.history = [
+        {id:1, tour: 'Talamanca'} ,
+        {id:2, tour: 'Guanacaste'} ,
+        {id:3, tour: 'Isla del coco'} ,
+        {id:4, tour: 'Volcan irazu'},
+        {id:5, tour: 'Limon'}
+    ];
 
 
 })

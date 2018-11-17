@@ -17,9 +17,9 @@ app.config(function ($routeProvider) {
 });
 
 
-app.controller('newtripController', function ($scope, connectApi) {
+app.controller('newtripController', function ($scope,$routeParams, connectApi) {
 
-
+    console.log($routeParams.id);
 
     $scope.searchInput = '';
 
@@ -31,11 +31,6 @@ app.controller('newtripController', function ($scope, connectApi) {
 
     ];
 
-
-    $scope.goToNewTrip = function(place){
-        window.location.href = '#/newtrip'; 
-        //$location.path('#/newtrip') ;
-    }
 
 
 })
