@@ -12,6 +12,9 @@ app.config(function ($routeProvider) {
 app.controller('clientController', function ($scope, connectApi) {
 
 
+
+    
+
 })
 
 

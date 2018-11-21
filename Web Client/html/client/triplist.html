@@ -7,10 +7,12 @@
     </div>
     <hr class="oms-hr red">
 
+
+    <!--
+
     <div class="oms-h3 oms-roboto oms-red-text">
         Search
     </div>
-
     <div class="input-group">
             <input type="text" class="form-control oms-input">
             <span class="input-group-btn">
@@ -20,12 +22,10 @@
                 </button>
             </span>
          </div>
-
+        -->
     <div class="oms-h3 oms-roboto oms-red-text">
         Results
     </div>
-
-
 
     <div class="row" ng-repeat="placerow in placelist | chunkBy:3">
         <div ng-repeat="place in placerow" class="col-sm-4 col-md-4">
@@ -35,7 +35,8 @@
                     <h3>{{place.name}}</h3>
                     <hr>
                     <p>
-                        Starts: {{place.stars}}
+                        Starts: {{place.stars}}<br>
+                        Phone number: {{place.number}}
                     </p>
                     <p>
                         <a ng-href="#/newtrip/{{place.stars}}" href="" class="btn btn-success oms-buttom" role="button">New trip here</a>
