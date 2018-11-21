@@ -6,8 +6,11 @@ var ConnectDB = require('../database/access.js').ConnectDB;
 exports.login = function (req, res) {
     var tipo = "findOne"
     var query = { user: req.body.user, password: req.body.password };
-    var modelo = Usuario
-    ConnectDB(tipo, modelo, query, function (json) {
+    var modelo = Usuario;
+    ConnectNEO4J_DB(tipo, modelo, query, function (json){
+        console.log("Somthing done");
+    });
+    ConnectDB(tipo, modelo, query, function (json) {        
         console.log(json.status)
         if (json.status == true && json.resultado != null){
             if (json.resultado.type == 0){

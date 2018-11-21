@@ -1,4 +1,5 @@
 var ConnectDB = require('../database/access.js').ConnectDB;
+var ConnectNEO4J_DB = require('../database/accessNEO4j.js').ConnectNEO4J_DB;
 const Cliente = require('../models/cliente.model');
 const Reservacion = require('../models/reservacion.model');
 
@@ -18,7 +19,7 @@ exports.book = function(req, res){
     var query = {};
     ConnectDB(tipo, modelo, query, function (json){
         res.send(json);
-    });
+    });    
 }
 
 //muestra el historial de reservaciones de un cliente
@@ -40,6 +41,9 @@ exports.readById = function(req, res){
     var query = {id: req.params.id};
     ConnectDB(tipo, modelo, query, function (json){
         res.send(json);
+    });
+    ConnectNEO4J_DB(tipo, modelo, query, function (json){
+        console.log(json);
     });
 }
 

@@ -39,6 +39,7 @@ ConnectDB = function (tipo, modelo, query, callback) {
     }
 
     else if (tipo == "findById") {
+        console.log("holaaa")
         modelo.findById(query, function (err, result) {
             if (err) {
                 callback({ status: false, error: 'Error en la lectura', err: -1 })

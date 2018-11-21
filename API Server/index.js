@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
-//var neo4j = require('neo4j-driver').v1;
+var neo4j = require('neo4j-driver').v1;
 
 app.use(cors({credentials: true, origin: true}));
 
@@ -24,7 +24,9 @@ app.use(function(req, res){
 
 //Utilizar la base de datos
 var access = require('./database/access.js')
+var accessNEO4j = require('./database/accessNEO4j.js')
 let db = access.db
+let dbNeo4j = accessNEO4j.session;
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
