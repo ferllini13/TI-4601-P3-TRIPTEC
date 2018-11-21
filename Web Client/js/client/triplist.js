@@ -1,23 +1,5 @@
-var app = angular.module("B2")
 
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when("/newtrip/:id", {
-            templateUrl: "./../html/client/newtrip.html",
-            controller: 'tripListController'
-        })
-        .when("/triplist", {
-            templateUrl: "./../html/client/triplist.html",
-            controller: 'newTripController'
-        })
-        .when("/tripinfo/:id", {
-            templateUrl: "./../html/client/tripdetail.html",
-            controller: 'tripInfoController'
-        })
-});
-
-
-app.controller('newtripController', function ($scope,$routeParams, connectApi) {
+app.controller('tripListController', function ($scope,$routeParams, connectApi) {
 
     console.log($routeParams.id);
 

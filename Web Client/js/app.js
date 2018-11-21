@@ -86,6 +86,11 @@ app.directive('menu', function() {
 
 //sevice que sobrecarga http con el fin de hacerlo accesible desde todos los comtroladores
 app.service('connectApi',function($http){
+
+
+    
+
+
 	//implementacion del gttp.get
 	this.httpGet= function(method){
         console.log("connectApi get!");
