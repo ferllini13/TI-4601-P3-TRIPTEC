@@ -43,13 +43,13 @@ app.controller('agentLocationsController', function ($scope, connectApi) {
     //watch form for changes
 
     $scope.GetLocation= function(){
-      var geocoder = new google.maps.Geocoder;
+      //var geocoder = new google.maps.Geocoder;
       let latlng={lat:parseFloat( $scope.lat),lng:parseFloat( $scope.lng)}
       
-      geocoder.geocode({'location':latlng}, function(results, status) {
-        if (status === 'OK')
-            console.log(results)
-        }); 
+      // geocoder.geocode({'location':latlng}, function(results, status) {
+      //   if (status === 'OK')
+      //       console.log(results)
+      //   }); 
 
 
       map = new google.maps.Map({
