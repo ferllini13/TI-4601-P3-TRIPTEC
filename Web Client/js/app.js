@@ -33,8 +33,8 @@ app.controller('loginCtrl', function($scope,$location,connectApi){
                 localStorage.setItem('userName', $scope.user.usr);
 		        localStorage.setItem('userId', data.data.resultado.id);
                 localStorage.setItem('userRol', data.data.resultado.type);
-                if (data.resultado.type=="client") {$location.url("expediente/cita-paciente");}
-                else if (data.resultado.type=="admi") {$location.url("expediente/cita-doctor");}
+                if (data.resultado.type==0) {$location.url("expediente/cita-paciente");}
+                else if (data.resultado.type==1) {$location.url("expediente/cita-doctor");}
             }    
         });
     };
@@ -52,8 +52,8 @@ app.controller('menuCtrl',function($scope,$location){
         console.log( $scope.userName)
         let rol = localStorage.getItem('userRol');
 
-        if (rol=="admi") {$scope.client=false;$scope.admi=true}
-        else if (rol=="client") {$scope.admi=false;$scope.client=true}
+        if (rol==1) {$scope.client=false;$scope.admi=true}
+        else if (rol==0) {$scope.admi=false;$scope.client=true}
         else {$scope.admi=false;$scope.client=false}
     };
 
