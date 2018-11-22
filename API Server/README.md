@@ -31,8 +31,8 @@ then extract the tar
 $ tar -xf ne4j....tar.gz
 ´´´
 
-then move the folder to whee you wanted to be
-the, from your project create a path var to get access, lets take for example
+then move the folder to where you want it to be
+then from your project create a path var to get access, lets take for example
 ´´´
 $ export NEO4J_HOME=/home/jairo-mm26/Documents/Jairo/Documents/BasesAvanzadas/neo4j-enterprise-3.4.10
 $ $NEO4J_HOME/bin/neo4j console

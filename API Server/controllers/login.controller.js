@@ -1,15 +1,13 @@
 const Usuario = require('../models/usuario.model');
 const Cliente = require('../models/cliente.model');
 var ConnectDB = require('../database/access.js').ConnectDB;
+var ConnectNEO4J_DB = require('../database/accessNEO4j.js').ConnectNEO4J_DB;
 
 //busca el usuario especificado para login
 exports.login = function (req, res) {
     var tipo = "findOne"
     var query = { user: req.body.user, password: req.body.password };
     var modelo = Usuario;
-    ConnectNEO4J_DB(tipo, modelo, query, function (json){
-        console.log("Somthing done");
-    });
     ConnectDB(tipo, modelo, query, function (json) {        
         console.log(json.status)
         if (json.status == true && json.resultado != null){
@@ -60,7 +58,13 @@ exports.register = function (req, res) {
             });
             modelo = cliente;     
             ConnectDB(tipo, modelo, query, function (json) {
-                res.send(json);
+                if (json.status == true){
+                    var tipo2 = "crearCliente";
+                    ConnectNEO4J_DB(tipo2, cliente);
+                    res.send(json);
+                }else{
+                    res.send(json);
+                }
             });
         }else{
             res.send(json);

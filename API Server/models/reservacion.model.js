@@ -12,9 +12,14 @@ let reservacionSchema = new Schema({
     possibleVisit: 
         [{
             name: {type: String, required: true},
-            radio: {type: Number, required: true}
-        }]
+            radio: {type: Number, required: true},
+            rating: {type: Number, required: false},
+            phone: {type: String, required: false},
+            schedule: {type: String, requiered: false},
+            website: {type: String, required: false},
+            image: {type: String, required: false}
 
+        }]
 });
 
 //Exporta el modelo

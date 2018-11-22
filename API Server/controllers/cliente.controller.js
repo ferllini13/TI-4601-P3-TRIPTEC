@@ -18,8 +18,15 @@ exports.book = function(req, res){
     modelo = reservacion;
     var query = {};
     ConnectDB(tipo, modelo, query, function (json){
-        res.send(json);
+        if (json.status == true){
+            var tipo2 = "reservar"
+            ConnectNEO4J_DB(tipo2, reservacion);
+            res.send(json);
+        }else{
+            res.send(json);
+        }
     });    
+    
 }
 
 //muestra el historial de reservaciones de un cliente
@@ -41,10 +48,7 @@ exports.readById = function(req, res){
     var query = {id: req.params.id};
     ConnectDB(tipo, modelo, query, function (json){
         res.send(json);
-    });
-    ConnectNEO4J_DB(tipo, modelo, query, function (json){
-        console.log(json);
-    });
+    });    
 }
 
 //agrega un sitio posible a visitar

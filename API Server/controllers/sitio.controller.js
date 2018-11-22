@@ -1,4 +1,6 @@
 var ConnectDB = require('../database/access.js').ConnectDB;
+var ConnectNEO4J_DB = require('../database/accessNEO4j').ConnectNEO4J_DB;
+
 const Sitio = require('../models/sitio.model.js');
 
 //registra un lugar nuevo
@@ -23,7 +25,13 @@ exports.register = function (req, res) {
     var query = {}
     var modelo = sitio
     ConnectDB(tipo, modelo, query, function (json){
-        res.send(json);
+        if (json.status == true){
+            var tipo2 = "crearSitio";
+            ConnectNEO4J_DB(tipo2, sitio);
+            res.send(json);
+        }else{
+            res.send(json);
+        }
     });
 }
 
@@ -46,4 +54,3 @@ exports.readAll = function(req, res){
         res.send(json)
     })
 }
-
