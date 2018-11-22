@@ -4,9 +4,17 @@ var app = angular.module("B2")
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/agent", {
-            templateUrl: "./../html/agent/locations.html",
+            templateUrl: "./../html/agent/home.html",
             controller: 'agentLocationsController'
         })
+        .when("/agent/add", {
+          templateUrl: "./../html/agent/locations.html",
+          controller: 'agentLocationsController'
+      })
+      .when("/agent/list", {
+        templateUrl: "./../html/agent/list-location.html",
+        controller: 'agentLocationsController'
+    })
 });
 
 
@@ -28,6 +36,14 @@ app.controller('agentLocationsController', function ($scope, connectApi) {
       website: undefined
     }  
 
+
+    $scope.dataLst = ["a","b","c"];
+    $scope.info = "";
+    $scope.setData = function(data){
+      console.log(data);
+      console.log("data");
+      $scope.info = data;
+    }
 
     $scope.writeData=function(){ 
       $scope.placeData.lat = details.type
@@ -59,7 +75,7 @@ app.controller('agentLocationsController', function ($scope, connectApi) {
       
       var local= "";
       var service = new google.maps.places.PlacesService(map);  
-      service.nearbySearch({location: latlng, radius: 5, type: ['establishment']},
+      var res = service.nearbySearch({location: latlng, radius: 5, type: ['establishment']},
         function(results, status, pagination) {
           console.log(results)
           for (x = 0; x<results.length; x++){
@@ -70,6 +86,8 @@ app.controller('agentLocationsController', function ($scope, connectApi) {
           $scope.autocomplete=local;
 
         });
+
+      console.log("service ready!");
 
 
 
