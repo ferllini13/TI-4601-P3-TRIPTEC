@@ -6,7 +6,7 @@ app.config(function ($routeProvider) {
             templateUrl: "./../html/client/newtrip.html",
             controller: 'tripListController'
         })
-        .when("/triplist", {
+        .when("/triplist/:lat/:lng", {
             templateUrl: "./../html/client/newtrip.html",
             controller: 'newtripController'
         })
@@ -18,11 +18,9 @@ app.config(function ($routeProvider) {
 
 
 app.controller('newtripController', function ($scope,$routeParams, connectApi) {
-
-    console.log($routeParams.id);
     $scope.placelist = [
     ];
-    $scope.data={latitud: undefined, longitud: undefined,radio:undefined, type : []};
+    $scope.data={radio: undefined, type : []};
     
     $scope.addtype= function(type){ 
 
@@ -37,7 +35,7 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
     $scope.GetLocation= function(){
 
         console.log("cristofer loca")
-        let latlng={lat:parseFloat(  $scope.data.latitud),lng:parseFloat(  $scope.data.longitud)}
+        let latlng={lat:parseFloat(  $routeParams.lat),lng:parseFloat( $routeParams.lng)}
   
         map = new google.maps.Map({
             center: latlng,
