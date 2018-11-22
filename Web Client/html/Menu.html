@@ -16,22 +16,13 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-nav-oms">
         <li ng-if="patient">
-          <a href="#/expediente/cita-paciente">Citas</a>
+          <a href="#/agent">Administrator</a>
         </li>
         <li ng-if="doctor">
-          <a href="#/expediente/cita-doctor">Citas</a>
-        </li>
-        <li ng-if="secre">
-          <a href="#/expediente/cita-secre">Citas</a>
-        </li>
-        <li ng-if="admi">
-          <a href="#/administrator">Administrar</a>
-        </li>
-        <li>
-          <a href="#/expediente">Expediente</a>
+          <a href="#/client">cliente</a>
         </li>
       </ul>
-      <ul ng-if="patient||doctor||secre||admi" class="nav navbar-nav navbar-right">
+      <ul ng-if="client||admi" class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">{{userName}}
             <span class="caret"></span>
