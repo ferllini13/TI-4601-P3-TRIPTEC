@@ -8,26 +8,186 @@
     <hr class="oms-hr red">
 
 
+
+
     <div class="row">
         <div class="col-md-6">
             <div class="list-group">
                 <a ng-repeat="data in dataLst" class="list-group-item" href="" ng-click="setData(data)">
                     <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-                    Add new location
+                    {{data.name}}
                 </a>
             </div>
         </div>
 
         <div class="col-md-6">
 
-            Info: {{info}}
+            <div>Name:</div>
+            <input ng-model="data.name" type="text" class="form-control oms-input">
+            <div>Direction:</div>
+            <input ng-model="data.direction" type="text" class="form-control oms-input">
+
+            <div>Latitude:</div>
+            <input readonly ng-model="data.lat" type="text" class="form-control oms-input">
+
+            <div>Logitude:</div>
+            <input readonly ng-model="data.long" type="text" class="form-control oms-input">
+
+            <div>Description:</div>
+            <input ng-model="data.description" type="text" class="form-control oms-input">
+
+
+            <div>Activities:</div>
+            <a href="" ng-show="listEmpty(data.activities)">
+                There aren't results.
+            </a>
+
+                    <div ng-repeat="activity in data.activities track by $index">
+                        <div class="oms-form-group">
+
+                            <div class="input-group">
+                                <input ng-model="activity" type="text" class="form-control oms-input">
+                                <span class="input-group-btn">
+                                    <button ng-click="data.activities.splice($index,1)" class="btn btn-danger oms-buttom" type="button">
+                                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                        Delete
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oms-form-group">
+                        <div class="input-group">
+                            <input ng-model="new_activity" type="text" class="form-control oms-input">
+                            <span class="input-group-btn">
+                                <button ng-click="data.activities.push(new_activity);new_activity=''" class="btn btn-success oms-buttom" type="button">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    Add Activity
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+
+
+            <div>Price:</div>
+            <input ng-model="data.price" type="text" class="form-control oms-input">
+            <div>Type:</div>
+            <input ng-model="data.type" type="text" class="form-control oms-input">
+            <div>Rating:</div>
+            <input readonly ng-model="data.rating" type="text" class="form-control oms-input">
+            <div>Phone number:</div>
+            <input ng-model="data.cellphone" type="text" class="form-control oms-input">
+
+            <div>Schedule:</div>
+            <a href="" ng-show="listEmpty(data.schedule)">
+                There aren't results.
+            </a>
+
+            <div ng-repeat="schedule in data.schedule track by $index">
+                <div class="oms-form-group">
+
+                    <div class="input-group">
+                        <input ng-model="schedule" type="text" class="form-control oms-input">
+                        <span class="input-group-btn">
+                            <button ng-click="data.schedule.splice($index,1)" class="btn btn-danger oms-buttom" type="button">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                Delete
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="oms-form-group">
+                <div class="input-group">
+                    <input ng-model="new_schedule" type="text" class="form-control oms-input">
+                    <span class="input-group-btn">
+                        <button ng-click="data.schedule.push(new_schedule);new_schedule=''" class="btn btn-success oms-buttom" type="button">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Add
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div>Website:</div>
+            <input ng-model="data.website" type="text" class="form-control oms-input">
+
+
 
 
         </div>
 
-        <br>
-        <br>
 
+
+
+        <!-- 
+                $scope.default_schema2 = {
+                    name: "La concha de la lora",
+                    direction: "Cerca del tec",
+                    long: -10,
+                    lat: 10,
+                    description: "Un lugar feliz",
+                    activities: ["un monton de cosas por hacer"],
+                    price: 25000,
+                    type: "hotel",
+                    image: "",
+                    rating: 4.7,
+                    cellphone: 88888888,
+                    schedule: ["L-V 4:00 pm"],
+                    website: "www.laconchadelora.net"
+                  } -->
+
+
+
+
+        <div class="oms-h2 oms-roboto oms-red-text">
+            {{details.name}}
+            <br>
+        </div>
+
+        <div ng-if="details.international_phone_number != undefined || details.international_phone_number != null">
+            <b>Phone Number:</b> {{details.international_phone_number}}
+            <br>
+        </div>
+
+        <div ng-if="details.types.length > 0">
+            <b>Types:</b>
+            <div ng-class="row" ng-repeat="type in details.types">
+                <span class="col badge badge-pill badge-dark">{{type}}</span>
+            </div>
+        </div>
+
+        <div ng-if="details.opening_hours.periods != undefined && details.opening_hours.periods != null && details.opening_hours.periods.length == 0">
+            <b>Schedule:</b>
+            Not available
+        </div>
+        <div>
+
+            <div ng-show="details.opening_hours.periods != undefined && details.opening_hours.periods != null">
+                <div ng-repeat="hour in details.opening_hours.periods" ng-if="hour.open.day!=0">
+                    Day:{{hour.open.day}} {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}}
+                </div>
+            </div>
+        </div>
 
 
     </div>
+
+    <br>
+    <br>
+
+
+
+</div>
+
+
+<style>
+    .oms-form-group {
+        margin-top: 2px;
+        margin-bottom: 2px;
+
+    }
+</style>

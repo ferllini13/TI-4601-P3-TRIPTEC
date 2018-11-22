@@ -8,12 +8,12 @@
   <form id="form" role="form" name="but">
 
     <div class="form-group move-down">
-      <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control oms-input" ng-autocomplete options="options" details="details"
-      />
+      <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control oms-input" ng-autocomplete options="options"
+        details="data" />
     </div>
   </form>
 
-  
+
   <form id="form2">
 
     <div align="center">
@@ -23,60 +23,112 @@
     </div>
   </form>
   <hr class="oms-hr red">
-  <div class="row" ng-show="details != undefined">
+  <div class="row" ng-show="data != undefined">
     <div class="col-md-6">
 
-      <div class="oms-h2 oms-roboto oms-red-text">
-          {{details.name}} <br>
-      </div>
-      
-      <div ng-if="details.international_phone_number != undefined || details.international_phone_number != null">
-          <b>Phone Number:</b> {{details.international_phone_number}} <br>
-      </div>
-      
-      <div ng-if="details.types.length > 0">
-          <b>Types:</b>
-          <div ng-class="row" ng-repeat="type in details.types">
-              <span class="col badge badge-pill badge-dark">{{type}}</span>
+        <div class="oms-h1 oms-roboto oms-red-text">
+            {{data.name}}
+        </div>
+      <!-- <input ng-model="data.name" type="text" class="form-control oms-input"> -->
+      <div>Direction:</div>
+      <input ng-model="data.direction" type="text" class="form-control oms-input">
+
+      <div>Latitude:</div>
+      <input readonly ng-model="data.lat" ng-init="data.lat = data.geometry.location.lat()" ng-value="data.geometry.location.lat()" type="text" class="form-control oms-input">
+
+      <div>Logitude:</div>
+      <input readonly ng-model="data.long" ng-value="data.geometry.location.lng()" type="text" class="form-control oms-input">
+
+      <div>Description:</div>
+      <input ng-model="data.description" type="text" class="form-control oms-input">
+
+
+      <div>Activities:</div>
+      <a href="" ng-show="listEmpty(data.activities)">
+        There aren't results.
+      </a>
+
+        <div ng-repeat="activity in data.activities track by $index">
+          <div class="oms-form-group">
+
+            <div class="input-group">
+              <input ng-model="activity" type="text" class="form-control oms-input">
+              <span class="input-group-btn">
+                <button ng-click="data.activities.splice($index,1)" class="btn btn-danger oms-buttom" type="button">
+                  <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                  Delete
+                </button>
+              </span>
+            </div>
           </div>
-      </div>
+        </div>
 
-      <!-- También se debe obtener del API la información tipo de lugar (restaurante, cine, museo, etc), una
-      imagen del sitio, teléfono internacional, el rating, el horario atención al público y el website. Tome
-      en cuenta que para algunos sitios, puede darse que el API no devuelva todos los datos anteriores.
-      El sistema debe permitir que los usuarios (empleados y clientes) consulten todos los sitios turísticos
-      registrados en el sistema. Los empleados podrán editar o eliminar lugares previamente creados. -->
-      <div ng-show="details.opening_hours.periods == undefined || details.opening_hours.periods.length == 0">
-        <b>Schedule:</b>
-        Not available
-      </div>
-      <div>
-        
-          <div ng-show="details.opening_hours.periods != undefined && details.opening_hours.periods != null">
-              <div ng-repeat="hour in details.opening_hours.periods" ng-if="hour.open.day!=0">
-                Day:{{hour.open.day}} {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} 
-              </div>
+        <div class="oms-form-group">
+          <div class="input-group">
+            <input ng-model="new_activity" type="text" class="form-control oms-input">
+            <span class="input-group-btn">
+              <button ng-click="addActivity(new_activity);new_activity=''" class="btn btn-success oms-buttom" type="button">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add Activity
+              </button>
+            </span>
           </div>
+        </div>
+
+
+      <div>Price:</div>
+      <input ng-model="data.price" type="text" class="form-control oms-input">
+      <div>Type:</div>
+      <input ng-model="data.type" type="text" class="form-control oms-input">
+      <div>Rating:</div>
+      <input readonly ng-model="data.rating" type="text" class="form-control oms-input">
+      <div>Phone number:</div>
+      <input ng-model="data.cellphone" type="text" class="form-control oms-input">
+
+      <div>Schedule:</div>
+      <a href="" ng-show="listEmpty(data.schedule)">
+        There aren't results.
+      </a>
+
+      <div ng-repeat="schedule in data.schedule track by $index">
+        <div class="oms-form-group">
+
+          <div class="input-group">
+            <input ng-model="schedule" type="text" class="form-control oms-input">
+            <span class="input-group-btn">
+              <button ng-click="data.schedule.splice($index,1)" class="btn btn-danger oms-buttom" type="button">
+                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                Delete
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
 
-      <b>Description: </b>
-      <input type="text" class="form-control oms-input">
+      <div class="oms-form-group">
+        <div class="input-group">
+          <input ng-model="new_schedule" type="text" class="form-control oms-input">
+          <span class="input-group-btn">
+            <button ng-click="addSchedule(new_schedule);new_schedule=''" class="btn btn-success oms-buttom" type="button">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              Add
+            </button>
+          </span>
+        </div>
+      </div>
 
-      <b>Activities:</b> <br>
-      <input type="text" class="form-control oms-input">
+      <div>Website:</div>
+      <input ng-model="data.website" type="text" class="form-control oms-input">
+
 
       <br>
-      <div class="center-align align-center">
-          <button class="btn btn-lg btn-success oms-buttom" type="button">
-              Insert
-             </button>
-      </div>
 
-
+      <a href="" ng-click="addData()" class="btn btn-lg btn-success btn-block oms-buttom">Insert</a>
 
     </div>
+
     <div class="col-md-6">
-      <img ng-if="details.photos != undefined && details.photos.length > 0" src="{{details.photos[0].getUrl()}}" width="400" height="300">
+      <img ng-if="data.photos != undefined && data.photos.length > 0" src="{{data.photos[0].getUrl()}}" width="400" height="300">
 
       <!-- <ul>
         <li>name: {{ details.name }}</li>
@@ -98,9 +150,14 @@
         <li>Lat: {{ details.geometry.location.lat() }}</li>
         <li>Lng: {{ details.geometry.location.lng() }}</li> -->
     </div>
-    
+
   </div>
+
 
   <hr ng-if="details != undefined && details != null" class="oms-hr red">
 
   </ul>
+
+</div>
+
+</div>
