@@ -44,12 +44,16 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
         
 
         var service = new google.maps.places.PlacesService(map);
+        console.log("Type: ");
+        console.log($scope.data.type);
         service.nearbySearch({location: latlng, radius:  $scope.data.radio, type:  $scope.data.type},
           function(results, status, pagination) {
-              console.log(results)
-                fill(service,results,$scope.data.type)        
-
+            console.log(results)
+            //fill(service,results,$scope.data.type)
+            $scope.placelist = results;        
+            $scope.$apply();
           });
+        
    }
 
    function fill(service ,data,types){
@@ -69,12 +73,16 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
         $scope.placelist = result;
    }
 
+   
+   $scope.userId =localStorage.getItem('userId');
 
 
-   $scope.addSite= function(site){
-        //porner aqui lo del api y agregar sitios
 
 
+   $scope.wish = function(place){
+        connectApi.httpPut("cliente/"+ $scope.userId +"/"+ place.name + "/wish").then(function(data){
+            console.log(data.data.resultado);
+        });
    }
    
 });
@@ -90,12 +98,14 @@ app.controller('tripListController', function ($scope,$routeParams, connectApi) 
     $scope.placelist = [];
 
     $scope.getSites = function(){
-        connectApi.httpPost("sitio/readAll/",{user: $scope.user.usr,password:$scope.user.pws}).then(function(data){
+        connectApi.httpGet("sitio/readAll/").then(function(data){
             console.log(data.data.resultado)
 
             $scope.placelist=data.data.resultado;
         });
     }
+
+   
 
 })
 

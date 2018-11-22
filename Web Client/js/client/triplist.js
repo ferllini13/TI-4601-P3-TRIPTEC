@@ -2,9 +2,9 @@ var app = angular.module("B2")
 
 app.config(function ($routeProvider) {
     $routeProvider
-        .when("/triplist/:lat/:lng", {
-            templateUrl: "./../html/client/newtrip.html",
-            controller: 'newtripController'
+        .when("/triplist/", {
+            templateUrl: "./../html/client/triplist.html",
+            controller: 'tripListController'
         })
         .when("/tripinfo/:id", {
             templateUrl: "./../html/client/tripdetail.html",

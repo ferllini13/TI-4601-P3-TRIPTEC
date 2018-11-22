@@ -12,11 +12,26 @@
             <a href="" ng-show="history.length == 0" class="list-group-item disabled">
                 There is no result
             </a>
-            <a ng-href="#/tripinfo/{{trip.id}}" ng-repeat="trip in history" class="list-group-item" >
-                <div class="oms-h3 oms-roboto oms-light-blue-text">
-                    {{trip.tour}}
+            <a ng-href="" ng-repeat="trip in history" class="list-group-item" >
+                <div class="oms-h3 oms-roboto oms-light-blue-red">
+                    {{trip.name}}
                 </div>
-                {{trip.id}}
+                <b>check in: </b>{{trip.checkIn}}
+                <b>check out: </b>{{trip.checkOut}} <br>
+
+                <b>Needs:</b>
+                <ul>
+                    <li ng-repeat="value in trip.needs">{{value}}</li>
+                </ul>
+
+                <b>Additionals:</b>
+                <ul>
+                    <li ng-repeat="value in trip.additionals">{{value}}</li>
+                </ul>
+
+                <b>Ammout: </b>
+                {{trip.clientsAmount}}
+
             </a>
         </div>
 

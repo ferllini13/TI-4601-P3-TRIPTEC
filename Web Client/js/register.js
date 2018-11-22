@@ -17,11 +17,22 @@ app.controller('registerController', function ($scope, connectApi) {
     $scope.clientData.birthdate = new Date();
 
 
+    $scope.user = {
+        id: '',
+        type: 0,
+        user: '',
+        password: '',
+        name : '',
+        correo : '',
+        phone : '',
+        birth : new Date()
+    };
+
     $scope.register = function () {
-
-
+        
         var errorDetected = false;
 
+        /*
         if (!isNaN($scope.clientData.phone)) {
             console.log('phone is a number');
             $scope.errorMessage = '';
@@ -29,11 +40,13 @@ app.controller('registerController', function ($scope, connectApi) {
         else {
             $scope.errorMessage = ('Error: Invalid phone number inserted!');
         }
+        */
 
 
         if (!errorDetected) {
-            connectApi.httpPost("login/login")
+            connectApi.httpPost("login/register",$scope.user)
                 .then(function (data) {
+                    
                 });
         }
 
@@ -41,6 +54,5 @@ app.controller('registerController', function ($scope, connectApi) {
     }
 
 })
-
 
 

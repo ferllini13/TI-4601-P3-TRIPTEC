@@ -1,0 +1,113 @@
+<div menu></div>
+
+<div class="container">
+    <div class="wrapper"></div>
+    <div class="oms-h1 oms-roboto oms-red-text">
+        Book
+    </div>
+    <hr class="oms-hr red">
+
+
+    <!-- $scope.reservacion = {
+        idClient: $scope.userId,
+        name: $routeParams.name,
+        clientsAmount: '',
+        checkIn: '',
+        checkOut: '',
+        needs: '',
+        additionals: ''
+    } -->
+
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Client:
+    </div>
+    <div class="oms-h3 oms-roboto">{{reservacion.idClient}}</div>
+
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Name:
+    </div>
+    <div class="oms-h3 oms-roboto">{{reservacion.name}}</div>
+
+
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Amount to pay:
+    </div>
+    <input ng-model="reservacion.clientsAmount" type="text" class="form-control oms-input">
+
+
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Checkin date:
+    </div>
+    <input required class="form-control oms-input" type="date" ng-model="reservacion.checkIn" />
+
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Checkout date:
+    </div>
+    <input required class="form-control oms-input" type="date" ng-model="reservacion.checkOut" />
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Needs:
+    </div>
+    
+    <div ng-repeat="schedule in reservacion.needs track by $index">
+        <div class="oms-form-group">
+
+            <div class="input-group">
+                <input ng-model="schedule" type="text" class="form-control oms-input">
+                <span class="input-group-btn">
+                    <button ng-click="reservacion.needs.splice($index,1)" class="btn btn-danger oms-buttom" type="button">
+                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                        Delete
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="oms-form-group">
+        <div class="input-group">
+            <input ng-model="new_schedule" type="text" class="form-control oms-input">
+            <span class="input-group-btn">
+                <button ng-click="addNeeds(new_schedule);new_schedule=''" class="btn btn-success oms-buttom" type="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Add
+                </button>
+            </span>
+        </div>
+    </div>
+
+
+    <div class="oms-h3 oms-roboto oms-red-text">
+        Aditionals:
+    </div>
+
+    <div ng-repeat="schedule in reservacion.additionals track by $index">
+        <div class="oms-form-group">
+
+            <div class="input-group">
+                <input ng-model="schedule" type="text" class="form-control oms-input">
+                <span class="input-group-btn">
+                    <button ng-click="reservacion.additionals.splice($index,1)" class="btn btn-danger oms-buttom" type="button">
+                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                        Delete
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="oms-form-group">
+        <div class="input-group">
+            <input ng-model="new_schedule2" type="text" class="form-control oms-input">
+            <span class="input-group-btn">
+                <button ng-click="addAdditionals(new_schedule2);new_schedule2=''" class="btn btn-success oms-buttom" type="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Add
+                </button>
+            </span>
+        </div>
+    </div>
+
+<br>
+    <a href="" ng-click="Book()" class="btn btn-lg btn-success btn-block oms-buttom">Book</a>
+
+</div>

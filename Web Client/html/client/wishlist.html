@@ -12,11 +12,10 @@
             <a href="" ng-show="wishlist.length == 0" class="list-group-item disabled">
                 There is no result
             </a>
-            <a ng-href="#/tripinfo/{{trip.id}}" ng-repeat="trip in wishlist" class="list-group-item" >
+            <a href="" ng-repeat="trip in wishlist" class="list-group-item" >
                 <div class="oms-h3 oms-roboto oms-light-blue-text">
-                    {{trip.tour}}
+                    {{trip}}
                 </div>
-                {{trip.id}}
             </a>
         </div>
 

@@ -30,25 +30,23 @@
     <div class="row" ng-repeat="placerow in placelist | chunkBy:3">
         <div ng-repeat="place in placerow" class="col-sm-4 col-md-4">
             <div class="thumbnail">
-                <img src="..." alt="...">
+                <img src="{{place.image}}"  width="300" height="200">
                 <div class="caption">
-                        <img src="{{place.photos[0].getUrl()}}"  width="300" height="200">
-                        <ul>
-                            <li><h3>{{place.name}}</h3></li>
-                                <li>tel: {{ place.international_phone_number }}</li>
-                                <li>rating: {{ place.rating }}</li>
-                                <li>website: {{ place.website }}</li>
-                                <li>schedule:</li>
-                                <ul ng-repeat="hour in  place.opening_hours.periods" ng-if="hour.open.day!=0">
-                                    <li >Day:{{hour.open.day}}     {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} </li>
-                                </ul>
-                                <ul  ng-if="details.opening_hours.periods[s0].open.day==0">
-                                    <li > 24/7</li>
-                                </ul>
-                        </ul>
+                    <div class="oms-h3 oms-roboto">{{place.name}}</div>
+                    <b>Tel:</b> {{ place.international_phone_number }}
+                    <b>Rating:</b> {{ place.rating }}
+                    <b>Website:</b> {{ place.website }}
+                    <b>Schedule:</b>
+                    <ul>
+                        <li ng-repeat="hour in  place.schedule" ng-if="hour.open.day!=0">{{hour}} </li>
+                    </ul>
+                    <b>Activities:</b>
+                    <ul>
+                        <li  ng-repeat="activity in  place.activities">{{activity}}</li>
+                    </ul>
                     <p>
-                        <a ng-href="#/newtrip/place.lat/place.long" href="" class="btn btn-success oms-buttom" role="button">New trip here</a>
-                        <a ng-href="#/tripinfo/{{place.stars}}" class="btn btn-default oms-buttom" role="button">More info...</a>
+                        <a ng-href="#/client/book/{{place.name}}" href="" class="btn btn-success oms-buttom" role="button">New trip here</a>
+                        <a ng-href="#/newtrip/{{place.lat}}/{{place.long}}" class="btn btn-default oms-buttom" role="button">More info...</a>
                     </p>
                 </div>
             </div>

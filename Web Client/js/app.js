@@ -27,14 +27,16 @@ app.controller('loginCtrl', function($scope,$location,connectApi){
             console.log(data.data.resultado)
             if (data.data.resultado==null){
                 alert("datos erroneos");
-                $location.url("main");
+                $location.url("login");
             }
             else {
+                console.log("ELSE");
                 localStorage.setItem('userName', $scope.user.usr);
 		        localStorage.setItem('userId', data.data.resultado.id);
                 localStorage.setItem('userRol', data.data.resultado.type);
-                if (data.resultado.type==0) {$location.url("expediente/cita-paciente");}
-                else if (data.resultado.type==1) {$location.url("expediente/cita-doctor");}
+                localStorage.setItem('user', data.data.resultado);
+                if (data.data.resultado.type==0) {$location.url("client");}
+                else if (data.data.resultado.type==1) {$location.url("agent");}
             }    
         });
     };

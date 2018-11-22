@@ -19,6 +19,27 @@ app.controller('wishlistController', function ($scope, connectApi) {
     ];
 
 
+    $scope.userId =localStorage.getItem('userId');
+
+
+    $scope.getHistory = function(){
+        connectApi.httpGet("cliente/"+ $scope.userId+"/wishlist/").then(function(data){
+            console.log(data.data.resultado)
+
+            var names = data.data.resultado;
+            var uniqueNames = [];
+            $.each(names, function(i, el){
+                if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+            });
+
+            $scope.wishlist=uniqueNames;
+            console.log("Wishlist");
+        });
+    }
+
+    $scope.getHistory();
+
+
 
 })
 

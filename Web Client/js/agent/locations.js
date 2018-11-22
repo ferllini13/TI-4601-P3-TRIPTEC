@@ -62,6 +62,8 @@ app.controller('agentLocationsController', function ($scope, connectApi) {
   $scope.addData = function(){
     $scope.data.lat = $scope.data.geometry.location.lat();
     $scope.data.long = $scope.data.geometry.location.lng();
+    if ($scope.data.photos != undefined && $scope.data.photos != null && $scope.data.photos-length > 0)
+      $scope.data.image = $scope.data.photos[0].getUrl();
     if ($scope.data.lat != undefined  && $scope.data.long != undefined){
       connectApi.httpPost("sitio/Register",$scope.data)
       .then(function(data){
