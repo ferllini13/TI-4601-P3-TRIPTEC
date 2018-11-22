@@ -13,10 +13,12 @@ app.use(cors({credentials:true, origin: true}))
 var login = require('./routes/login.route.js');
 var sitio = require('./routes/sitio.route.js');
 var cliente = require('./routes/cliente.route.js');
+var consultas = require ('./routes/consultas.route.js');
 
 app.use('/login', login)
 app.use('/sitio', sitio)
 app.use('/cliente', cliente)
+app.use('/consultas', consultas)
 
 app.use(function(req, res){
   res.send({status:false ,error:'Invalid URL'});

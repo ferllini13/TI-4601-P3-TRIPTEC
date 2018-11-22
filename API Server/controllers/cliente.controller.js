@@ -20,7 +20,7 @@ exports.book = function(req, res){
     ConnectDB(tipo, modelo, query, function (json){
         if (json.status == true){
             var tipo2 = "reservar"
-            ConnectNEO4J_DB(tipo2, reservacion);
+            ConnectNEO4J_DB(tipo2, reservacion, null);
             res.send(json);
         }else{
             res.send(json);

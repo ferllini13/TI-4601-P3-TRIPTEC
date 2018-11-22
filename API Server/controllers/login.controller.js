@@ -60,7 +60,7 @@ exports.register = function (req, res) {
             ConnectDB(tipo, modelo, query, function (json) {
                 if (json.status == true){
                     var tipo2 = "crearCliente";
-                    ConnectNEO4J_DB(tipo2, cliente);
+                    ConnectNEO4J_DB(tipo2, cliente, null);
                     res.send(json);
                 }else{
                     res.send(json);

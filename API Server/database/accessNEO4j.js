@@ -4,43 +4,7 @@ var session = driver.session();
 
 module.exports = session; //export the session of the neo4j database
 
-ConnectNEO4J_DB = function (tipo, objeto) {
-
-  // console.log("Tipo: " + tipo +", query: " + query + ", modelo: " + modelo + " Im NEO4J ")
-  /** query crear usuario
-    create (name:Cliente {id: "116860517",
-      name: "Jairo Mendez",
-      correo: "jm@correo.com",
-      phone: "88552214",
-      birth: "1996-09-26",
-      wishList: [""]})
-
-      ***** crear sitio*****
-  create (RiuPalace:Sitio {name: "Hotel Riu Palace",
-      direction: "en guana",
-      long: -0.5,
-      lat:25.5,
-      description:"hotel de playa, vengase",
-      activities: ["playa","playita"],
-      price: 40,
-      type: "hotel",
-      image: "alguna",
-      rating:10,
-      cellphone: "+506 22222222",
-      schedule: ["hoy","ma;ana"],
-      website:"riuplace.com"})
-  
-      ***** crear reservacion ****
-  MATCH (clientName:Cliente),(placeName:Sitio)
-  WHERE clientName.name = "Jairo" AND placeName.name = "Hotel Riu Palace"
-   create (clientName)-[:RESERVO {clientsAmount:5,
-      checkIn:"2018-11-20",
-      checkOut:"2018-11-22",
-      needs: ["vegan"],
-      additionals:["no sean necios"],
-      possibleVist: []}]->(placeName)
-      RETURN r
-   */
+ConnectNEO4J_DB = function (tipo, objeto, callback) {
 
   if (tipo == "crearCliente") {
     var data = { id: objeto.id, name: objeto.name, correo: objeto.correo, phone: objeto.phone };
@@ -54,9 +18,6 @@ ConnectNEO4J_DB = function (tipo, objeto) {
       .catch(function (error) {
         console.log(error);
       });
-  }
-  else if (tipo == "findOne") {
-    console.log("NEO WORKING");
   }
   else if (tipo == "reservar") {
     var data = { id: objeto.idClient, name: objeto.name, clientsAmount: objeto.clientsAmount };
@@ -101,7 +62,68 @@ ConnectNEO4J_DB = function (tipo, objeto) {
       .catch(function (error) {
         console.log(error);
       });
+  }else if (tipo == "sitios cliente"){
+    var sitios = [];
+    session
+    .run("match (c:Cliente {id: $id})-[r:R]->(Sitio) return Sitio", {id: objeto.id}).then(function (result) {
+      result.records.forEach(function (record) {
+        sitios.push(record._fields[0]);
+      });
+      callback({status: true, resultado: sitios});
+
+    })
+    .catch(function (error) {
+      callback({status: false, error: error})
+    });
+
+  }else if (tipo == "sitios reservados"){
+    var sitios = [];
+    session
+    .run("match ()-[r:R]->(Sitio) return Sitio.name, count(Sitio.name) as name").then(function (result) {
+      result.records.forEach(function (record) {
+        console.log(record)
+        sitios.push(record._fields[0]);
+      });
+      callback({status: true, resultado: sitios});
+
+    })
+    .catch(function (error) {
+      callback({status: false, error: error})
+    });
+
+  }else if (tipo == "sitios mas reservados"){
+    var sitios = [];
+    session
+    .run("match ()-[r:R]->(Sitio) return Sitio.name, count(Sitio.name) as name ORDER BY name LIMIT 5").then(function (result) {
+      result.records.forEach(function (record) {
+        console.log(record)
+        sitios.push(record._fields[0]);
+      });
+      callback({status: true, resultado: sitios});
+
+    })
+    .catch(function (error) {
+      callback({status: false, error: error})
+    });
+  }else if (tipo == "sitios en comun"){
+    var sitios = [];
+    session
+    .run("match (c:Cliente) where c.id = $id " +
+    "match (c2:Cliente) where not c2.id = $id "+
+    "match (c)-[:R]->(s:Sitio) "+
+    "match (c2)-[:R]->(s2:Sitio) where s.name = s2.name "+
+    "return c2.name as nombreCliente, s.name as sitio, count(c2.name) as cantidad", {id: objeto.id}).then(function (result) {
+      result.records.forEach(function (record) {
+        console.log(record)
+        sitios.push(record._fields);
+      });
+      callback({status: true, resultado: sitios});
+
+    })
+    .catch(function (error) {
+      console.log(error)
+      callback({status: false, error: error})
+    });
   }
 }
-
 module.exports.ConnectNEO4J_DB = ConnectNEO4J_DB
