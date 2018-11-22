@@ -4,11 +4,11 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when("/newtrip/:lat/:lng", {
             templateUrl: "./../html/client/newtrip.html",
-            controller: 'tripListController'
-        })
-        .when("/triplist", {
-            templateUrl: "./../html/client/newtrip.html",
             controller: 'newtripController'
+        })
+        .when("/triplist/:lat/:lng", {
+            templateUrl: "./../html/client/newtrip.html",
+            controller: 'tripListController'
         })
         .when("/tripinfo/:id", {
             templateUrl: "./../html/client/tripdetail.html",
@@ -18,16 +18,24 @@ app.config(function ($routeProvider) {
 
 
 app.controller('newtripController', function ($scope,$routeParams, connectApi) {
+    $scope.placelist = [];
+    $scope.sites = []
+    $scope.data={radio: undefined, type : []};
+    
+    $scope.addtype= function(type){ 
 
-    console.log($routeParams.id);
-    $scope.placelist = [
-    ];
-    $scope.data={latitud: 9.861418300000002, longitud:-83.91578429999998,radio:10, type : ['establishment']};
+        if ($scope.data.type.includes(type)){
+            $scope.data.type.splice($scope.data.type.indexOf(type), 1)
+        }
+        else{
+            $scope.data.type.push(type)
+        }
+    }
 
     $scope.GetLocation= function(){
 
         console.log("cristofer loca")
-        let latlng={lat:parseFloat(  $scope.data.latitud),lng:parseFloat(  $scope.data.longitud)}
+        let latlng={lat:parseFloat(  $routeParams.lat),lng:parseFloat( $routeParams.lng)}
   
         map = new google.maps.Map({
             center: latlng,
@@ -60,6 +68,50 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
         }
         $scope.placelist = result;
    }
+
+
+
+   $scope.addSite= function(site){
+        //porner aqui lo del api y agregar sitios
+
+
+   }
    
 });
+
+
+
+
+
+app.controller('tripListController', function ($scope,$routeParams, connectApi) {
+
+    console.log($routeParams.id);
+
+    $scope.placelist = [];
+
+    $scope.getSites = function(){
+        connectApi.httpPost("sitio/readAll/",{user: $scope.user.usr,password:$scope.user.pws}).then(function(data){
+            console.log(data.data.resultado)
+
+            $scope.placelist=data.data.resultado;
+        });
+    }
+
+})
+
+
+
+app.controller('tripInfoController', function ($scope,$routeParams, connectApi) {
+
+    console.log($routeParams.id);
+
+
+    $scope.getripInfo = function(){
+        connectApi.httpPost("login/login/",{user: $scope.user.usr,password:$scope.user.pws}).then(function(data){
+            console.log(data.data.resultado)
+
+        });
+    }
+
+})
 

@@ -23,7 +23,7 @@ app.controller('loginCtrl', function($scope,$location,connectApi){
     };
 
     $scope.checkUser =  function(){//verificacion de la existencia de un usuario	
-        connectApi.httpPost("login/1/login",{username: $scope.user.usr,password:$scope.user.pws}).then(function(data){
+        connectApi.httpPost("login/login/",{user: $scope.user.usr,password:$scope.user.pws}).then(function(data){
             console.log(data.data.resultado)
             if (data.data.resultado==null){
                 alert("datos erroneos");
@@ -31,12 +31,10 @@ app.controller('loginCtrl', function($scope,$location,connectApi){
             }
             else {
                 localStorage.setItem('userName', $scope.user.usr);
-		        localStorage.setItem('userId', data.data.resultado.cedula);
-                localStorage.setItem('userRol', data.data.resultado.tipo);
-                if (data.resultado.tipo=="patient") {$location.url("expediente/cita-paciente");}
-                else if (data.resultado.tipo=="doctor") {$location.url("expediente/cita-doctor");}
-                else if (data.resultado.tipo=="secretary") {$location.url("expediente/cita-secre");}
-                else if (data.resultado.tipo=="admi") {$location.url("administrator");}
+		        localStorage.setItem('userId', data.data.resultado.id);
+                localStorage.setItem('userRol', data.data.resultado.type);
+                if (data.resultado.type==0) {$location.url("expediente/cita-paciente");}
+                else if (data.resultado.type==1) {$location.url("expediente/cita-doctor");}
             }    
         });
     };
@@ -45,9 +43,7 @@ app.controller('loginCtrl', function($scope,$location,connectApi){
 
 app.controller('menuCtrl',function($scope,$location){
     $scope.userName=localStorage.getItem('userName');
-	$scope.patient=false;
-    $scope.doctor=false;
-    $scope.secre=false;
+	$scope.client=false;
     $scope.admi=false;
 
 
@@ -56,11 +52,9 @@ app.controller('menuCtrl',function($scope,$location){
         console.log( $scope.userName)
         let rol = localStorage.getItem('userRol');
 
-        if (rol=="patient") {$scope.patient=true;$scope.doctor=false;$scope.secre=false;$scope.admi=false;}
-        else if (rol=="doctor") {$scope.patient=false;$scope.doctor=true;$scope.secre=false;$scope.admi=false;}
-        else if (rol=="secretary") {$scope.patient=false;$scope.doctor=false;$scope.secre=true;$scope.admi=false;}
-        else if (rol=="admi") {$scope.patient=false;$scope.doctor=false;$scope.secre=false;$scope.admi=true;}
-        else {$scope.patient=false;$scope.doctor=false;$scope.secre=false;$scope.admi=false;}
+        if (rol==1) {$scope.client=false;$scope.admi=true}
+        else if (rol==0) {$scope.admi=false;$scope.client=true}
+        else {$scope.admi=false;$scope.client=false}
     };
 
 
