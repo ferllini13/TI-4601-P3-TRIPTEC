@@ -2,13 +2,13 @@ var app = angular.module("B2")
 
 app.config(function ($routeProvider) {
     $routeProvider
-        .when("/newtrip/:id", {
+        .when("/newtrip/:lat/:lng", {
             templateUrl: "./../html/client/newtrip.html",
             controller: 'tripListController'
         })
         .when("/triplist", {
-            templateUrl: "./../html/client/triplist.html",
-            controller: 'newTripController'
+            templateUrl: "./../html/client/newtrip.html",
+            controller: 'newtripController'
         })
         .when("/tripinfo/:id", {
             templateUrl: "./../html/client/tripdetail.html",
@@ -20,22 +20,14 @@ app.config(function ($routeProvider) {
 app.controller('newtripController', function ($scope,$routeParams, connectApi) {
 
     console.log($routeParams.id);
-
-    $scope.searchInput = '';
-        $scope.placelist = [
-            /*
-        {name:'Hotel CR', stars:4},
-        {name:'Hotel CR 1', stars:1},
-        {name:'Hotel CR 2', stars:5},
-        {name:'Hotel CR 3', stars:2}
-            */
+    $scope.placelist = [
     ];
+    $scope.data={latitud: 9.861418300000002, longitud:-83.91578429999998,radio:10, type : ['establishment']};
 
+    $scope.GetLocation= function(){
 
-     var Lista = [];
-
-    $scope.GetLocation= function(latitud, longitud, type,radio){
-        let latlng={lat:parseFloat( latitud),lng:parseFloat( longitud)}
+        console.log("cristofer loca")
+        let latlng={lat:parseFloat(  $scope.data.latitud),lng:parseFloat(  $scope.data.longitud)}
   
         map = new google.maps.Map({
             center: latlng,
@@ -44,32 +36,30 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
         
 
         var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({location: latlng, radius: radio, type: type},
+        service.nearbySearch({location: latlng, radius:  $scope.data.radio, type:  $scope.data.type},
           function(results, status, pagination) {
-            Lista = results;
-            console.log(Lista);
+              console.log(results)
+                fill(service,results,$scope.data.type)        
+
           });
-  
-        
-        console.log(Lista);
-        
-    }
+   }
 
+   function fill(service ,data,types){
+       var result=[];
 
-    $scope.getLocationTest  = function(){
+       for (i = 0; i < data.length; i++) {
+            for (x = 0; x < data[i].types.length; x++) {
+                if (types.includes(data[i].types[x])){
+                    service.getDetails({placeId: data[i].place_id}, function(place, status) {
+                        result.push(place)
+                        //console.log(place)
+                    });
+                }
 
-        $scope.GetLocation(10.6286725,-85.4431958000000, ["establishment"],1);
-        $scope.placelist  = Lista;
-    }
-
-
-
-
-    
-/*
-    $scope.GetTrip = function(){
-        $scope.GetLocation("","","",5);
-    }
-*/
-})
+        }
+        }
+        $scope.placelist = result;
+   }
+   
+});
 
