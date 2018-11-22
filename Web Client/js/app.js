@@ -34,7 +34,7 @@ app.controller('loginCtrl', function($scope,$location,connectApi){
                 localStorage.setItem('userName', $scope.user.usr);
 		        localStorage.setItem('userId', data.data.resultado.id);
                 localStorage.setItem('userRol', data.data.resultado.type);
-                localStorage.setItem('user', data.data.resultado);
+                localStorage.setItem('user', JSON.stringify(data.data.resultado) );
                 if (data.data.resultado.type==0) {$location.url("client");}
                 else if (data.data.resultado.type==1) {$location.url("agent");}
             }    

@@ -26,7 +26,7 @@ app.controller('historyController', function ($scope,$routeParams, connectApi) {
     $scope.userId =localStorage.getItem('userId');
 
 
-    $scope.user_ = localStorage.getItem('user');
+    $scope.user_ =JSON.parse(localStorage.getItem('user'));
 
     console.log($scope.user_);
 

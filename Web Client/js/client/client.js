@@ -20,7 +20,8 @@ app.config(function ($routeProvider) {
 app.controller('clientController', function ($scope,$routeParams, connectApi) {
 
 
-    $scope.user = localStorage.getItem('user');
+    $scope.user =JSON.parse(localStorage.getItem('user'));
+
     console.log($scope.user);
 
     //$scope.user={};
