@@ -4,11 +4,11 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when("/newtrip/:lat/:lng", {
             templateUrl: "./../html/client/newtrip.html",
-            controller: 'tripListController'
+            controller: 'newtripController'
         })
         .when("/triplist/:lat/:lng", {
             templateUrl: "./../html/client/newtrip.html",
-            controller: 'newtripController'
+            controller: 'tripListController'
         })
         .when("/tripinfo/:id", {
             templateUrl: "./../html/client/tripdetail.html",
@@ -18,8 +18,8 @@ app.config(function ($routeProvider) {
 
 
 app.controller('newtripController', function ($scope,$routeParams, connectApi) {
-    $scope.placelist = [
-    ];
+    $scope.placelist = [];
+    $scope.sites = []
     $scope.data={radio: undefined, type : []};
     
     $scope.addtype= function(type){ 
@@ -68,6 +68,50 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
         }
         $scope.placelist = result;
    }
+
+
+
+   $scope.addSite= function(site){
+        //porner aqui lo del api y agregar sitios
+
+
+   }
    
 });
+
+
+
+
+
+app.controller('tripListController', function ($scope,$routeParams, connectApi) {
+
+    console.log($routeParams.id);
+
+    $scope.placelist = [];
+
+    $scope.getSites = function(){
+        connectApi.httpPost("sitio/readAll/",{user: $scope.user.usr,password:$scope.user.pws}).then(function(data){
+            console.log(data.data.resultado)
+
+            $scope.placelist=data.data.resultado;
+        });
+    }
+
+})
+
+
+
+app.controller('tripInfoController', function ($scope,$routeParams, connectApi) {
+
+    console.log($routeParams.id);
+
+
+    $scope.getripInfo = function(){
+        connectApi.httpPost("login/login/",{user: $scope.user.usr,password:$scope.user.pws}).then(function(data){
+            console.log(data.data.resultado)
+
+        });
+    }
+
+})
 

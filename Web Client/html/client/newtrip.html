@@ -40,7 +40,6 @@
     <div class="row" ng-repeat="placerow in placelist | chunkBy:3">
         <div ng-repeat="place in placerow" class="col-sm-4 col-md-4">
             <div class="thumbnail">
-                <img src="..." alt="...">
                 <div class="caption">
                         <img src="{{place.photos[0].getUrl()}}"  width="300" height="200">
                         <ul>
@@ -56,6 +55,9 @@
                                     <li > 24/7</li>
                                 </ul>
                         </ul>
+                    </p>
+                    <p>
+                            <a ng-href="" href="" class="btn btn-success oms-buttom" ng-click="addSite(place)" role="button">Visit later</a>
                     </p>
                 </div>
             </div>

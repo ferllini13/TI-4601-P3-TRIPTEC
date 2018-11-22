@@ -32,14 +32,22 @@
             <div class="thumbnail">
                 <img src="..." alt="...">
                 <div class="caption">
-                    <h3>{{place.name}}</h3>
-                    <hr>
+                        <img src="{{place.photos[0].getUrl()}}"  width="300" height="200">
+                        <ul>
+                            <li><h3>{{place.name}}</h3></li>
+                                <li>tel: {{ place.international_phone_number }}</li>
+                                <li>rating: {{ place.rating }}</li>
+                                <li>website: {{ place.website }}</li>
+                                <li>schedule:</li>
+                                <ul ng-repeat="hour in  place.opening_hours.periods" ng-if="hour.open.day!=0">
+                                    <li >Day:{{hour.open.day}}     {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} </li>
+                                </ul>
+                                <ul  ng-if="details.opening_hours.periods[s0].open.day==0">
+                                    <li > 24/7</li>
+                                </ul>
+                        </ul>
                     <p>
-                        Starts: {{place.stars}}<br>
-                        Phone number: {{place.number}}
-                    </p>
-                    <p>
-                        <a ng-href="#/newtrip/{{place.stars}}" href="" class="btn btn-success oms-buttom" role="button">New trip here</a>
+                        <a ng-href="#/newtrip/place.lat/place.long" href="" class="btn btn-success oms-buttom" role="button">New trip here</a>
                         <a ng-href="#/tripinfo/{{place.stars}}" class="btn btn-default oms-buttom" role="button">More info...</a>
                     </p>
                 </div>
