@@ -1,47 +1,106 @@
 <div menu></div>
 <div class="container">
-      <div class="wrapper"></div>
-      <div class="oms-h1 oms-roboto oms-red-text">
-          Select locations
+  <div class="wrapper"></div>
+  <div class="oms-h1 oms-roboto oms-red-text">
+    Select locations
+  </div>
+
+  <form id="form" role="form" name="but">
+
+    <div class="form-group move-down">
+      <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control oms-input" ng-autocomplete options="options" details="details"
+      />
+    </div>
+  </form>
+
+  
+  <form id="form2">
+
+    <div align="center">
+      <input type="text" id="lat" ng-model="lat" placeholder="latitude" style="background-color : #FFFFFF;" size="50" />
+      <input type="text" id="lng" ng-model="lng" placeholder="longitude" style="background-color : #FFFFFF;" size="50" />
+      <input type="button" value="Submit" ng-click="GetLocation()" size="100" style="background-color : #3560FF;" />
+    </div>
+  </form>
+  <hr class="oms-hr red">
+  <div class="row" ng-show="details != undefined">
+    <div class="col-md-6">
+
+      <div class="oms-h2 oms-roboto oms-red-text">
+          {{details.name}} <br>
+      </div>
+      
+      <div ng-if="details.international_phone_number != undefined || details.international_phone_number != null">
+          <b>Phone Number:</b> {{details.international_phone_number}} <br>
+      </div>
+      
+      <div ng-if="details.types.length > 0">
+          <b>Types:</b>
+          <div ng-class="row" ng-repeat="type in details.types">
+              <span class="col badge badge-pill badge-dark">{{type}}</span>
+          </div>
       </div>
 
-      <form id="form" role="form" name="but">
-
-      <div class="form-group move-down">
-        <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control" ng-autocomplete options="options" details="details"/>
+      <!-- También se debe obtener del API la información tipo de lugar (restaurante, cine, museo, etc), una
+      imagen del sitio, teléfono internacional, el rating, el horario atención al público y el website. Tome
+      en cuenta que para algunos sitios, puede darse que el API no devuelva todos los datos anteriores.
+      El sistema debe permitir que los usuarios (empleados y clientes) consulten todos los sitios turísticos
+      registrados en el sistema. Los empleados podrán editar o eliminar lugares previamente creados. -->
+      <div ng-show="details.opening_hours.periods == undefined || details.opening_hours.periods.length == 0">
+        <b>Schedule:</b>
+        Not available
       </div>
-    </form>
+      <div>
+        
+          <div ng-show="details.opening_hours.periods != undefined && details.opening_hours.periods != null">
+              <div ng-repeat="hour in details.opening_hours.periods" ng-if="hour.open.day!=0">
+                Day:{{hour.open.day}} {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} 
+              </div>
+          </div>
+      </div>
 
-    <form id="form2">
+      <b>Description: </b>
+      <input type="text" class="form-control oms-input">
 
-            <div align="center">
-              <input type="text" id="lat" ng-model="lat" placeholder="latitude"  style="background-color : #FFFFFF;" size="50"/>
-              <input type="text" id="lng" ng-model="lng"  placeholder="longitude"  style="background-color : #FFFFFF;" size="50"/>  
-              <input type="button"  value = "Submit" ng-click="GetLocation()" size="100" style="background-color : #3560FF;"/>
-            </div>
-      </form>
-          
+      <b>Activities:</b> <br>
+      <input type="text" class="form-control oms-input">
+
+      <br>
+      <div class="center-align align-center">
+          <button class="btn btn-lg btn-success oms-buttom" type="button">
+              Insert
+             </button>
+      </div>
+
+
+
+    </div>
+    <div class="col-md-6">
+      <img ng-if="details.photos != undefined && details.photos.length > 0" src="{{details.photos[0].getUrl()}}" width="400" height="300">
+
+      <!-- <ul>
+        <li>name: {{ details.name }}</li>
+        <li>type:</li>
+        <ul ng-repeat="type in details.types">
+          <li> {{type}} </li>
+        </ul>
+        <li>tel: {{ details.international_phone_number }}</li>
+        <li>rating: {{ details.rating }}</li>
+        <li>schedule: </li>
+
+        <ul ng-repeat="hour in  details.opening_hours.periods" ng-if="hour.open.day!=0">
+          <li>Day:{{hour.open.day}} {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} </li>
+        </ul>
+        <ul ng-if="details.opening_hours.periods[0].open.day==0">
+          <li> 24/7</li>
+        </ul>
+        <li>website: {{ details.website }}</li>
+        <li>Lat: {{ details.geometry.location.lat() }}</li>
+        <li>Lng: {{ details.geometry.location.lng() }}</li> -->
+    </div>
     
-    <h3>Results:</h3>
-    <img src="{{details.photos[0].getUrl()}}"  width="400" height="300"> 
-    <ul>
-      <li>name: {{ details.name }}</li>
-      <li>type:</li>
-      <ul ng-repeat="type in details.types">
-            <li > {{type}} </li>
-      </ul>
-      <li>tel: {{ details.international_phone_number }}</li>
-      <li>rating: {{ details.rating }}</li>
-      <li>schedule: </li>
+  </div>
 
-            <ul ng-repeat="hour in  details.opening_hours.periods" ng-if="hour.open.day!=0">
-                        <li >Day:{{hour.open.day}}     {{hour.open.hours}}:{{hour.open.minutes}} / {{hour.close.hours}}:{{hour.close.minutes}} </li>
-            </ul>
-            <ul  ng-if="details.opening_hours.periods[0].open.day==0">
-                        <li > 24/7</li>
-            </ul>
-      <li>website: {{ details.website }}</li>
-      <li>Lat: {{ details.geometry.location.lat() }}</li>
-      <li>Lng: {{ details.geometry.location.lng() }}</li>
-    </ul>
+  <hr ng-if="details != undefined && details != null" class="oms-hr red">
 
+  </ul>
