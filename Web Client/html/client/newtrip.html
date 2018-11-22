@@ -9,12 +9,26 @@
 
     <form autocomplete="off">
 
-    <label class="checkbox-inline"><input type="checkbox" value="">Restaurants</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Cinemas</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Bares</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Museums</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Health Centers</label>
-    <input type="button" class="btn btn-primary btn-block btn-large nounderline" class="input-login" ng-click="GetLocation()" value="Go!">
+          <div class="btn-group " role="group" aria-label="Basic example">
+                <button type="button" ng-click="addtype('food')" class="btn btn-primary">Restaurants</button>
+                <button type="button" ng-click="addtype('cine')" class="btn btn-primary">Cinemas</button>
+                <button type="button" ng-click="addtype('bar')" class="btn btn-primary">Bares</button>
+                <button type="button" ng-click="addtype('museum')" class="btn btn-primary">Museums</button>
+                <button type="button" ng-click="addtype('doctor')" class="btn btn-primary">Doctor</button>
+              </div>
+
+        <br>
+        SERARCHING FOR :
+        <div ng-repeat="type in data.type" >
+            <ul>
+                    <li> <h5>{{type}}</h5></li>
+            </ul>
+        </div>
+
+        <br>
+        <br>
+            
+        <input type="button" class="btn btn-primary btn-block btn-large nounderline" class="input-login" ng-click="GetLocation()" value="Go!">
     </form>
 
     <div class="oms-h3 oms-roboto oms-red-text"></div>

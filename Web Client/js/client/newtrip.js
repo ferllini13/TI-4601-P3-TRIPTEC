@@ -22,7 +22,17 @@ app.controller('newtripController', function ($scope,$routeParams, connectApi) {
     console.log($routeParams.id);
     $scope.placelist = [
     ];
-    $scope.data={latitud: 9.861418300000002, longitud:-83.91578429999998,radio:10, type : ['establishment']};
+    $scope.data={latitud: undefined, longitud: undefined,radio:undefined, type : []};
+    
+    $scope.addtype= function(type){ 
+
+        if ($scope.data.type.includes(type)){
+            $scope.data.type.splice($scope.data.type.indexOf(type), 1)
+        }
+        else{
+            $scope.data.type.push(type)
+        }
+    }
 
     $scope.GetLocation= function(){
 
